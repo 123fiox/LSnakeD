@@ -1,0 +1,338 @@
+/* ============================= */
+/* GLOBAL REALITY COLLAPSE       */
+/* ============================= */
+
+* {
+  box-sizing: border-box;
+  font-family: "Comic Sans MS", "Papyrus", "Wingdings", cursive;
+  animation: microShake 0.04s infinite;
+}
+
+body {
+  margin: 0;
+  padding: 20px;
+  background: repeating-conic-gradient(
+    from 0deg,
+    red,
+    yellow,
+    lime,
+    cyan,
+    magenta,
+    red
+  );
+  overflow: hidden;
+  animation:
+    megaShake 0.06s infinite,
+    hueShift 0.3s infinite,
+    zoomPulse 1.2s infinite;
+}
+
+/* ============================= */
+/* ANIMATIONS FROM HELL          */
+/* ============================= */
+
+@keyframes megaShake {
+  0% {
+    transform: translate(15px, -15px) rotate(6deg);
+  }
+  25% {
+    transform: translate(-18px, 12px) rotate(-8deg);
+  }
+  50% {
+    transform: translate(12px, 18px) rotate(9deg);
+  }
+  75% {
+    transform: translate(-14px, -10px) rotate(-7deg);
+  }
+  100% {
+    transform: translate(15px, -15px) rotate(6deg);
+  }
+}
+
+@keyframes microShake {
+  0% {
+    transform: translate(2px, -2px);
+  }
+  50% {
+    transform: translate(-2px, 2px);
+  }
+  100% {
+    transform: translate(2px, -2px);
+  }
+}
+
+@keyframes hueShift {
+  0% {
+    filter: hue-rotate(0deg) saturate(400%);
+  }
+  100% {
+    filter: hue-rotate(360deg) saturate(400%);
+  }
+}
+
+@keyframes zoomPulse {
+  0%,
+  100% {
+    scale: 1;
+  }
+  50% {
+    scale: 1.15;
+  }
+}
+
+@keyframes tear {
+  0% {
+    clip-path: inset(0 0 0 0);
+  }
+  50% {
+    clip-path: inset(10% 0 15% 0);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* ============================= */
+/* CRT OVERLAY                   */
+/* ============================= */
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.15),
+    rgba(0, 0, 0, 0.15) 2px,
+    transparent 2px,
+    transparent 4px
+  );
+  animation: microShake 0.02s infinite;
+  z-index: 999999;
+}
+
+/* ============================= */
+/* UI                            */
+/* ============================= */
+
+h1,
+h2 {
+  background: black;
+  color: white;
+  border: 12px double lime;
+  padding: 10px;
+  margin: 5px auto;
+  width: fit-content;
+  text-shadow:
+    5px 5px 0 red,
+    -5px -5px 0 cyan;
+  animation:
+    megaShake 0.1s infinite,
+    tear 0.5s infinite;
+}
+
+/* ============================= */
+/* MAP OF DOOM                   */
+/* ============================= */
+
+#map {
+  display: grid;
+  grid-template-columns: repeat(20, 25px);
+  grid-template-rows: repeat(20, 25px);
+  gap: 3px;
+  margin: 20px auto;
+  background: black;
+  border: 18px ridge red;
+  position: relative;
+  z-index: 1;
+  animation:
+    rotateHell 0.5s infinite linear,
+    megaShake 0.08s infinite;
+}
+
+@keyframes rotateHell {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.case {
+  width: 25px;
+  height: 25px;
+  background: repeating-linear-gradient(
+    45deg,
+    white,
+    white 2px,
+    black 2px,
+    black 4px
+  );
+  position: relative;
+}
+
+/* ============================= */
+/* 🐍 THE SNAKE (ELDRITCH)        */
+/* ============================= */
+
+.case-snake {
+  position: relative !important;
+  z-index: 99999 !important;
+  background: radial-gradient(circle, lime, red, purple, black);
+  outline: 5px solid white;
+  box-shadow:
+    0 0 20px lime,
+    0 0 40px red,
+    0 0 80px purple,
+    inset 0 0 20px black;
+  animation:
+    snakeWarp 0.06s infinite,
+    megaShake 0.04s infinite;
+  pointer-events: none;
+}
+
+/* motion trail */
+.case-snake::after {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  background: inherit;
+  opacity: 0.4;
+  filter: blur(6px);
+  z-index: -1;
+}
+
+@keyframes snakeWarp {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  33% {
+    transform: scale(2) rotate(120deg);
+  }
+  66% {
+    transform: scale(0.5) rotate(240deg);
+  }
+  100% {
+    transform: scale(1) rotate(360deg);
+  }
+}
+
+/* ============================= */
+/* 🍎 THE APPLE (RADIOACTIVE)     */
+/* ============================= */
+
+.case-apple {
+  position: relative !important;
+  z-index: 100000 !important;
+  background: yellow;
+  outline: 6px solid black;
+  box-shadow:
+    0 0 30px red,
+    0 0 60px lime,
+    0 0 120px cyan;
+  animation:
+    appleExplode 0.08s infinite,
+    megaShake 0.03s infinite;
+  pointer-events: none;
+}
+
+.case-apple::before {
+  content: "☢";
+  position: absolute;
+  inset: 0;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+}
+
+@keyframes appleExplode {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    transform: scale(2.2) rotate(360deg);
+  }
+  100% {
+    transform: scale(1) rotate(720deg);
+  }
+}
+
+/* ============================= */
+/* MODAL JUMPSCARE                */
+/* ============================= */
+
+.modale-window {
+  position: fixed;
+  inset: 0;
+  background: black;
+  border: 30px groove magenta;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999999;
+  animation:
+    flashDeath 0.12s infinite,
+    megaShake 0.04s infinite;
+}
+
+@keyframes flashDeath {
+  0% {
+    background: black;
+  }
+  25% {
+    background: red;
+  }
+  50% {
+    background: white;
+  }
+  75% {
+    background: blue;
+  }
+  100% {
+    background: black;
+  }
+}
+
+/* ============================= */
+/* BUTTONS (ILLEGAL)              */
+/* ============================= */
+
+button {
+  padding: 20px 40px;
+  font-size: 22px;
+  border: 10px dashed cyan;
+  background: linear-gradient(90deg, red, yellow, lime, cyan);
+  animation:
+    megaShake 0.05s infinite,
+    rotateHell 0.35s infinite;
+}
+
+button:hover {
+  filter: invert(1) blur(3px);
+}
+
+/* ============================= */
+/* STATS PANEL                    */
+/* ============================= */
+
+#stats {
+  width: 320px;
+  padding: 10px;
+  border: 12px double white;
+  background: repeating-conic-gradient(from 45deg, red, blue, lime, yellow);
+  animation:
+    megaShake 0.06s infinite,
+    rotateHell 0.5s infinite;
+}
+
+#resetButton {
+  background: red;
+  animation:
+    megaShake 0.02s infinite,
+    flashDeath 0.2s infinite;
+}
